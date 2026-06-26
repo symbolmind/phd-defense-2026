@@ -519,12 +519,12 @@
 
     .footer-inner {
       display: flex;
-      align-items: center;
+      flex-direction: row;
       justify-content: center;
+      align-items: center;
       gap: 24px;
-      flex-wrap: wrap;
     }
-
+    
     .footer-thank {
       font-size: 1rem;
       font-weight: 600;
@@ -797,8 +797,12 @@
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
   <div class="footer-inner">
-    <img src="images/profile.png" alt="أمين مقيدش" class="footer-profile-img" />
-    <p class="footer-thank">شكرا لتشريفكم لي بحضور مناقشة هذه الأطروحة. ويسعدني اهتمامكم واطلاعكم على هذا العمل العلمي.</p>
+    <img src="images/profile.png"
+         class="footer-profile-img"
+         alt="أمين مقيدش">
+    <p class="footer-thank">
+        شكراً لتشريفكم بحضور مناقشة هذه الأطروحة، ويسعدني اهتمامكم واطلاعكم على هذا العمل العلمي.
+    </p> 
   </div>
 </footer>
 
