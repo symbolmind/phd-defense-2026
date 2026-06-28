@@ -307,7 +307,12 @@
     .card + .card { margin-top: 20px; }
 
     /* section spacing */
-    .section { margin-bottom: 72px; }
+.section { margin-bottom: 72px; }
+
+/* آخر قسم قبل الفوتر */
+.section:last-child{
+    margin-bottom:24px;
+}
 
     /* ── ABSTRACT ─────────────────────────────────────────── */
     .abstract-body {
@@ -603,24 +608,20 @@ animation:none;
     outline:none;
     border:none;
     box-shadow:none;
-
+    background:transparent;
     --progress:0%;
-
-    background:linear-gradient(
-        to right,
-        #8CB4D8 0%,
-        #8CB4D8 var(--progress),
-        #ececec var(--progress),
-        #ececec 100%
-    );
-
-    border-radius:100px;
 }
 
 #progressBar::-webkit-slider-runnable-track{
     height:7px;
-    background:#ececec;
     border-radius:100px;
+    background:linear-gradient(
+        to right,
+        #A9C8E8 0%,
+        #A9C8E8 var(--progress),
+        #ececec var(--progress),
+        #ececec 100%
+    );
 }
 
 #progressBar::-webkit-slider-thumb{
