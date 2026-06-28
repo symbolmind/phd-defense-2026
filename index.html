@@ -551,11 +551,15 @@
     border-radius:50%;
     background:var(--gold);
     color:white;
-    font-size:30px;
+    font-size:24px;
     cursor:pointer;
     transition:.25s;
     animation:pulse 1.8s infinite;
-    padding-right:2px;
+    padding-right:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:0;
 }
     @keyframes pulse{
 0%{
@@ -588,12 +592,11 @@ animation:none;
     height:100%;
     background:var(--gold);
 }
-.time-row{
-display:flex;
-justify-content:space-between;
-font-size:.82rem;
-margin-top:10px;
-color:var(--muted);
+.podcast-progress-wrap{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:25px;
 }
 
 
@@ -776,8 +779,7 @@ color:var(--muted);
 ▶
 </button>
 
-<div class="podcast-progress-wrap">
-
+<div class="podcast-progress-wrap" dir="ltr">
 <span id="currentTime">00:00</span>
 
 <input
@@ -1032,12 +1034,11 @@ const audio=document.getElementById("podcastAudio");
 
 const play=document.getElementById("playPodcast");
 
-const progress=document.getElementById("progress");
+const progress=document.getElementById("progressBar");
 
 const current=document.getElementById("currentTime");
 
-const total=document.getElementById("totalTime");
-
+const total=document.getElementById("duration");
 
 function format(sec){
 
