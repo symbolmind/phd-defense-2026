@@ -907,5 +907,34 @@
   });
 </script>
 
+
+const audio = document.getElementById("podcastAudio");
+const btn = document.getElementById("playPodcast");
+
+btn.addEventListener("click",function(){
+
+if(audio.paused){
+
+audio.play();
+
+btn.innerHTML="⏸ إيقاف مؤقت";
+
+}else{
+
+audio.pause();
+
+btn.innerHTML="▶ تشغيل البودكاست";
+
+}
+
+});
+
+audio.onended=function(){
+
+btn.innerHTML="▶ تشغيل البودكاست";
+
+}
+
+  
 </body>
 </html>
