@@ -554,6 +554,21 @@
     font-size:30px;
     cursor:pointer;
     transition:.25s;
+    animation:pulse 1.8s infinite;
+}
+    @keyframes pulse{
+0%{
+box-shadow:0 0 0 0 rgba(201,162,39,.6);
+}
+70%{
+box-shadow:0 0 0 14px rgba(201,162,39,0);
+}
+100%{
+box-shadow:0 0 0 0 rgba(201,162,39,0);
+}
+}
+.playing{
+animation:none;
 }
 .play-btn:hover{
     transform:scale(1.08);
@@ -762,11 +777,13 @@ color:var(--muted);
 
 </button>
 
-<div class="progress">
-
-<div class="progress-bar" id="progressBar"></div>
-
-</div>
+<input
+type="range"
+id="progress"
+value="0"
+min="0"
+max="100"
+step="0.1">
 
 <div class="time-row">
 
@@ -1025,7 +1042,7 @@ const audio=document.getElementById("podcastAudio");
 
 const play=document.getElementById("playPodcast");
 
-const progress=document.getElementById("progressBar");
+const progress=document.getElementById("progress");
 
 const current=document.getElementById("currentTime");
 
@@ -1055,15 +1072,13 @@ play.onclick=function(){
 if(audio.paused){
 
 audio.play();
-
 play.innerHTML="❚❚";
-
+play.classList.add("playing");
 }else{
 
 audio.pause();
-
 play.innerHTML="▶";
-
+play.classList.remove("playing");
 }
 
 }
@@ -1072,16 +1087,19 @@ audio.ontimeupdate=function(){
 
 let p=(audio.currentTime/audio.duration)*100;
 
-progress.style.width=p+"%";
-
+progress.value=p;
 current.innerHTML=format(audio.currentTime);
 
 }
+progress.addEventListener("input",function(){
 
+audio.currentTime=(progress.value/100)*audio.duration;
+
+});
 audio.onended=function(){
 
 play.innerHTML="▶";
-
+play.classList.remove("playing");
 progress.style.width="0%";
 
 current.innerHTML="0:00";
