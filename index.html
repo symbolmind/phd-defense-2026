@@ -511,6 +511,78 @@
 
     .contact-email-link:hover { color: var(--gold); }
 
+
+    /* ───────── PODCAST ───────── */
+.podcast-card{
+    background:#fff;
+    border-radius:14px;
+    padding:35px;
+    box-shadow:var(--shadow);
+    border:1px solid var(--border);
+    text-align:center;
+}
+.podcast-icon{
+    width:85px;
+    height:85px;
+    margin:auto;
+    margin-bottom:20px;
+    border-radius:50%;
+    background:rgba(18,57,122,.08);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:40px;
+}
+.podcast-title{
+    font-size:1.35rem;
+    font-weight:800;
+    color:var(--navy);
+    margin-bottom:10px;
+}
+.podcast-desc{
+    color:var(--muted);
+    line-height:2;
+    margin-bottom:28px;
+}
+.play-btn{
+    width:74px;
+    height:74px;
+    border:none;
+    border-radius:50%;
+    background:var(--gold);
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+    transition:.25s;
+}
+.play-btn:hover{
+    transform:scale(1.08);
+    background:var(--gold-light);
+}
+.progress{
+    width:100%;
+    height:7px;
+    background:#ececec;
+    border-radius:100px;
+    overflow:hidden;
+    margin-top:30px;
+}
+.progress-bar{
+    width:0;
+    height:100%;
+    background:var(--gold);
+}
+.time-row{
+display:flex;
+justify-content:space-between;
+font-size:.82rem;
+margin-top:10px;
+color:var(--muted);
+}
+
+
+
+    
     /* ── FOOTER ───────────────────────────────────────────── */
     footer {
       background: var(--navy);
@@ -656,30 +728,79 @@
 
 
 
-    <section class="section fade-in" id="podcast">
+ <section class="section fade-in">
 
-        <div class="section-label">
-            <div class="section-label-line"></div>
-            <span class="section-label-text">
-                بودكاست الأطروحة
-            </span>
-            <div class="section-label-line"></div>
-        </div>
-        ...
-        <div class="podcast-card">
-                <div class="podcast-icon">🎙️</div>
-                <h3>بودكاست الأطروحة</h3>
-                <p>
-                    استمع إلى عرض صوتي مختصر يلخص أهم محاور ونتائج هذه الأطروحة.
-                </p>
-                <button id="playPodcast">
-                    ▶ تشغيل البودكاست
-                </button>
-                <audio id="podcastAudio">
-                    <source src="podcastPhD.mp3" type="audio/mpeg">
-                </audio>
+<div class="section-label">
 
-            </div>   
+<div class="section-label-line"></div>
+
+<span class="section-label-text">
+
+بودكاست الأطروحة
+
+</span>
+
+<div class="section-label-line"></div>
+
+</div>
+
+<div class="podcast-card">
+
+<div class="podcast-icon">
+
+🎙️
+
+</div>
+
+<div class="podcast-title">
+
+بودكاست الأطروحة
+
+</div>
+
+<div class="podcast-desc">
+
+استمع إلى ملخص صوتي للأطروحة في حوالي 20 دقيقة.
+
+</div>
+
+<button id="playPodcast" class="play-btn">
+
+▶
+
+</button>
+
+<div class="progress">
+
+<div class="progress-bar" id="progressBar"></div>
+
+</div>
+
+<div class="time-row">
+
+<span id="currentTime">
+
+0:00
+
+</span>
+
+<span id="totalTime">
+
+0:00
+
+</span>
+
+</div>
+
+<audio id="podcastAudio">
+
+<source src="podcastPhD.mp3" type="audio/mpeg">
+
+</audio>
+
+</div>
+
+</section>   
         ...
     </section>
 
@@ -906,32 +1027,75 @@
     }
   });
 
+  
+// ===== PODCAST =====
+
+// ===== PODCAST =====
+
+const audio=document.getElementById("podcastAudio");
+
+const play=document.getElementById("playPodcast");
+
+const progress=document.getElementById("progressBar");
+
+const current=document.getElementById("currentTime");
+
+const total=document.getElementById("totalTime");
 
 
-const audio = document.getElementById("podcastAudio");
-const btn = document.getElementById("playPodcast");
+function format(sec){
 
-btn.addEventListener("click",function(){
+let m=Math.floor(sec/60);
+
+let s=Math.floor(sec%60);
+
+if(s<10)s="0"+s;
+
+return m+":"+s;
+
+}
+
+audio.onloadedmetadata=function(){
+
+total.innerHTML=format(audio.duration);
+
+}
+
+play.onclick=function(){
 
 if(audio.paused){
 
 audio.play();
 
-btn.innerHTML="⏸ إيقاف مؤقت";
+play.innerHTML="❚❚";
 
 }else{
 
 audio.pause();
 
-btn.innerHTML="▶ تشغيل البودكاست";
+play.innerHTML="▶";
 
 }
 
-});
+}
+
+audio.ontimeupdate=function(){
+
+let p=(audio.currentTime/audio.duration)*100;
+
+progress.style.width=p+"%";
+
+current.innerHTML=format(audio.currentTime);
+
+}
 
 audio.onended=function(){
 
-btn.innerHTML="▶ تشغيل البودكاست";
+play.innerHTML="▶";
+
+progress.style.width="0%";
+
+current.innerHTML="0:00";
 
 }
 
